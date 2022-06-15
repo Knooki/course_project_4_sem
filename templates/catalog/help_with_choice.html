@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="bootstrap/css/bootstrap.rtl.min.css" rel="stylesheet">
+
+<meta name="theme-color" content="#7952b3">
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+</head>
+
+
+  <body>
+    {% block content %}
+        <h2>Принятие</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Технолоия</th>
+                  <th scope="col">Низкая востребованность</th>
+                  <th scope="col">Средняя востребованность</th>
+                  <th scope="col">Высокая востребованность</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <th scope="col">1</th>
+                  <th scope="row">Python</th>
+                  <td>1600</td>
+                  <td>1800</td>
+                  <td>2200</td>
+                </tr>
+                <tr>
+                    <th scope="col">2</th>
+                  <th scope="row">C#</th>
+                  <td>1700</td>
+                  <td>2300</td>
+                  <td>2500</td>
+                </tr>
+                <tr>
+                    <th scope="col">3</th>
+                  <th scope="row">C\C++</th>
+                  <td>2100</td>
+                  <td>2400</td>
+                  <td>3500</td>
+                </tr>
+                <tr>
+                    <th scope="col">4</th>
+                    <th scope="row">Frontend</th>
+                    <td>1500</td>
+                    <td>1700</td>
+                    <td>2000</td>
+                  </tr>
+                  <tr>
+                    <th scope="col">5</th>
+                    <th scope="row">Java</th>
+                    <td>1800</td>
+                    <td>2000</td>
+                    <td>2700</td>
+                  </tr>
+              </tbody>
+        </table>
+        <h5>Данная таблица помогает выбрать наиболее выгодные курсы с использованием игровых методов.</h5>
+        <h5>Прибыль от определенных технологий зависит от их востребованности.</h5>
+        <h5>Чем востребованнее технология, тем она прибыльнее.</h5>
+        <h5>Критерий Вальда: {{wald}}</h5>
+        <h5>Критерий азартного игрока: {{maximax}}</h5>
+        <h5>Критерий Лапласа: {{laplace}}</h5>
+        <h5>Модифицированный критерий Гурвица: {{hurwitz_mod}}</h5>
+
+    <script src="bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+      
+{% endblock content %}
+  </body>
+</html>

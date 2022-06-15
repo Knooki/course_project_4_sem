@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="{% static  "bootstrap/css/bootstrap.rtl.min.css" %}" rel="stylesheet">
+
+<meta name="theme-color" content="#7952b3">
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+</head>
+
+{% block content %}
+
+  <body>
+<main>
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for product in items %}
+        <div class="col">
+          <div class="card shadow-sm" style="width: 25rem;">
+            <img class="card-img-top" src="{{product.image.url}}" alt="{{product.title}}" style="width: 25rem; height: 25rem;">      
+
+            <div class="card-body">
+              <h5 class="card-title">{{product}}</h5>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{{ product.purchase }}"> 
+                <button type="button" class="btn btn-sm btn-outline-secondary">Приобрести</button>
+                  </a>
+                <a href="{{ product.get_absolute_url }}">  
+                <button type="button" class="btn btn-sm btn-outline-secondary">Просмотр</button>
+                </a>
+              </div>
+                <h6 class="text">${{product.price}}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</main>
+
+    <script src="bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+      
+  </body>
+</html>
+
+
+
+{% endblock content %}

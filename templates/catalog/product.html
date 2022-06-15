@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="bootstrap/css/bootstrap.rtl.min.css" rel="stylesheet">
+
+<meta name="theme-color" content="#7952b3">
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+</head>
+
+{% block content %}
+
+  <body>
+<main>
+    <div class="container dark-grey-text mt-5">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+  
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+  
+            <img src="{{ object.image.url }}" class="img-fluid" alt="" style="width: 25rem; height: 25rem;">
+  
+          </div>
+          <!--Grid column-->
+  
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+  
+            <!--Content-->
+            <div class="p-4">
+  
+              <div class="mb-3">
+                <a href="">
+                  <span class="badge purple mr-1">{{ object.category}}</span>
+                </a>
+              </div>
+              <h1>{{object.title}}</h1>
+              <p class="lead">
+                <span>${{ object.price }}</span>
+              </p>
+  
+              <p class="lead font-weight-bold">Описание</p>
+  
+              <p>{{ object.description }}</p>
+  
+              {% comment %} <form class="d-flex justify-content-left">
+                <!-- Default input -->
+                <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+                <button class="btn btn-primary btn-md my-0 p" type="submit">
+                  Add to cart
+                  <i class="fas fa-shopping-cart ml-1"></i>
+                </button>
+  
+              </form> {% endcomment %}
+              <a href="{{ object.purchase }}" class="btn btn-primary btn-md my-0 p">
+                Приобрести
+                <i class="fas fa-shopping-cart ml-1"></i>
+              </a>
+            </div>
+            <!--Content-->
+  
+          </div>
+          <!--Grid column-->
+  
+        </div>
+        <!--Grid row-->
+  
+        <hr>
+  
+        <!--Grid row-->
+        <div class="row d-flex justify-content-center wow fadeIn">
+  
+          <!--Grid column-->
+          <div class="col-md-6 text-center">
+  
+          </div>
+          <!--Grid column-->
+          
+        </div>
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+  
+  {% for language in object.languages %}
+        <!--Grid row-->
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4">
+            <h5>{{language}}</h5>  
+          </div>
+
+        <!--Grid row-->
+  
+      {% endfor %}
+    </div>
+</div>
+</main>
+
+    <script src="bootstrap/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+      
+  </body>
+</html>
+
+
+
+{% endblock content %}

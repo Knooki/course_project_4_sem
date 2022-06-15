@@ -1,0 +1,19 @@
+
+{% extends 'admin/base.html' %} {%load static%} {% block branding %}
+
+<head>
+    <link rel="shortcut icon" href="{% static '/images/small_duck_admin.png' %}" type="image/png">
+    <title>DuckSoft</title>
+  </head>
+
+
+<h1 id="head">
+  <img src="{% static 'images/small_duck_admin.png' %}" width="65" height="65" />
+  DuckSoft Administration
+</h1>
+
+{% endblock %} {% block extrastyle%}
+
+<link rel="stylesheet" href="{% static 'css/adminstyle.css'%}" />
+
+{%endblock %}

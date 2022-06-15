@@ -1,0 +1,156 @@
+  {% extends 'base.html' %}
+  {% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="{% static '/images/small_duck.png' %}" type="image/png">
+
+    <title>DuckSoft
+       </title>
+
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" >
+
+<link href="{% static 'css/main.scc' %}" rel="stylesheet">  
+  </head>
+<body>
+  {% block content %}
+  <div class="row">
+    <div class="col-lg-6">
+        <br>
+
+            <div class="box-element hidden" id="payment-info">
+				<h2>Paypal Опции</h2>
+				<!--<button id="make-payment">Make payment</button>-->
+				<div id="paypal-button-container"></div>
+			</div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="box-element">
+
+            <h3>Продукт к покупке:</h3>
+            <hr>
+            <div class="cart-row">
+                <div style="flex:2"><img class="row-image" src="{{item.image.url}}"" style="width: 10rem; height: 10rem;"></div>
+                <div style="flex:2"><p>{{item.title}}</p></div>
+            </div>
+            <h5>Итого:   ${{item.price}}</h5>
+            <hr>
+            <form>
+                <input type="button" class="btn btn-sm btn-outline-secondary" value="Вернуться к описанию продукта" onclick="history.back()">
+               </form>
+        </div>
+    </div>
+
+
+	<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+	<script>
+		var total = '{{item.price}}'
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+        	style: {
+                color:  'blue',
+                shape:  'rect',
+            },
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value:parseFloat(total).toFixed(2)
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    submitFormData()
+                });
+            }
+
+        }).render('#paypal-button-container');
+    </script>
+
+	<script type="text/javascript">
+		var shipping = '{{order.shipping}}'
+
+		if (shipping == 'False'){
+		 	document.getElementById('shipping-info').innerHTML = ''
+		}
+
+		if (user != 'AnonymousUser'){
+		 	document.getElementById('user-info').innerHTML = ''
+		 }
+
+		if (shipping == 'False' && user != 'AnonymousUser'){
+			//Hide entire form if user is logged in and shipping is false
+				document.getElementById('form-wrapper').classList.add("hidden");
+				//Show payment if logged in user wants to buy an item that does not require shipping
+			    document.getElementById('payment-info').classList.remove("hidden");
+		}
+
+		var form = document.getElementById('form')
+		form.addEventListener('submit', function(e){
+	    	e.preventDefault()
+	    	console.log('Form Submitted...')
+	    	document.getElementById('form-button').classList.add("hidden");
+	    	document.getElementById('payment-info').classList.remove("hidden");
+	    })
+
+		/*
+	    document.getElementById('make-payment').addEventListener('click', function(e){
+	    	submitFormData()
+	    })
+	    */
+
+	    function submitFormData(){
+	    	console.log('Payment button clicked')
+
+	    	var userFormData = {
+				'name':null,
+				'email':null,
+				'total':total,
+			}
+
+	    	if (user == 'AnonymousUser'){
+	    		userFormData.name = form.name.value
+	    		userFormData.email = form.email.value
+	    	}
+
+	    	console.log('User Info:', userFormData)
+
+	    	var url = "/process_order/"
+	    	fetch(url, {
+	    		method:'POST',
+	    		headers:{
+	    			'Content-Type':'applicaiton/json',
+	    			'X-CSRFToken':csrftoken,
+	    		}, 
+	    		body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
+	    		
+	    	})
+	    	.then((response) => response.json())
+	    	.then((data) => {
+				console.log('Success:', data);
+				alert('Transaction completed');  
+
+				cart = {}
+				document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
+				window.location.href = "/catalog/"
+
+				})
+	    }
+	</script>
+
+{% endblock content %}
+</body>
